@@ -12,6 +12,11 @@ Multi-module Maven project with:
 - Spring AI `1.0.0`
 - Java `21`
 
+## Spring AI documentation
+
+- This project is pinned to Spring AI `1.0.0`
+- Use the Spring AI `1.0` reference docs for examples and configuration details: https://docs.spring.io/spring-ai/reference/1.0/
+
 ## Run
 
 Backend:
