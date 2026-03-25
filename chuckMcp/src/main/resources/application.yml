@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: chuckMcp
+  main:
+    web-application-type: none
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        stdio: true
+        name: chuckMcp
+        version: 1.0.0
+        instructions: Provides a tool that returns a random Chuck Norris fact.
+        capabilities:
+          tool: true
+          resource: false
+          prompt: false
+          completion: false
+
+logging:
+  level:
+    root: INFO

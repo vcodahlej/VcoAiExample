@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/vco_app}
+    username: ${SPRING_DATASOURCE_USERNAME:vco}
+    password: ${SPRING_DATASOURCE_PASSWORD:vco}
+    driver-class-name: org.postgresql.Driver
+  ai:
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+            platform: postgresql
+    mcp:
+      client:
+        enabled: true
+        type: SYNC
+        stdio:
+          connections:
+            brave-search:
+              command: ${BRAVE_MCP_NPX_COMMAND:/opt/homebrew/bin/npx}
+              args:
+                - -y
+                - "@modelcontextprotocol/server-brave-search"
+              env:
+                BRAVE_API_KEY: ${BRAVE_API_KEY}
+            chuck-norris:
+              command: ${CHUCK_MCP_COMMAND:/bin/zsh}
+              args:
+                - -lc
+                - >
+                  exec ${CHUCK_MCP_JAVA_HOME:/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home}/bin/java
+                  -cp '/Users/dahlej/vco-workspace/tutorials/VcoAiExample/chuckMcp/target/classes:/Users/dahlej/vco-workspace/tutorials/VcoAiExample/chuckMcp/target/dependency/*'
+                  com.vco.chuckmcp.ChuckMcpApplication
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_CHAT_OPTIONS_MODEL:gpt-4o-mini}
+
+server:
+  port: 8080
+
+app:
+  allowed-origin: ${APP_ALLOWED_ORIGIN:http://localhost:5173}
+
+logging:
+  level:
+    org.springframework.web.socket: INFO

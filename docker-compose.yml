@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: vco-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vco_app
+      POSTGRES_USER: vco
+      POSTGRES_PASSWORD: vco
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vco -d vco_app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
